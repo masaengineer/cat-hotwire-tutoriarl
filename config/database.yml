@@ -2,11 +2,20 @@ default: &default
   adapter: postgresql
   encoding: unicode
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  host: <%= ENV.fetch("DATABASE_HOST") { "db" } %>
+  username: <%= ENV.fetch("DATABASE_USERNAME") { "postgres" } %>
+  password: <%= ENV.fetch("DATABASE_PASSWORD") { "password" } %>
+
 development:
   <<: *default
-  database: cat_hotwire_development
+  database: app_development
+
+test:
+  <<: *default
+  database: app_test
+
 production:
   <<: *default
-  database: cat_hotwire_production
-  username: cat_hotwire
-  password: <%= ENV["CAT_HOTWIRE_DATABASE_PASSWORD"] %>
+  database: app_production
+  username: <%= ENV['DATABASE_USERNAME'] %>
+  password: <%= ENV['DATABASE_PASSWORD'] %>
